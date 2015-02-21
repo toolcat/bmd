@@ -1,5 +1,11 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'application'
+
+sourceCompatibility = "1.8"
+version = '0.0.1'
+
+mainClassName = "com.toolcat.bmd.Starter"
 
 repositories {
     jcenter()
