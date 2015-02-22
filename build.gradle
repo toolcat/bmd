@@ -2,7 +2,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 
-sourceCompatibility = "1.8"
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 version = '0.0.1'
 
 mainClassName = "com.toolcat.bmd.Starter"
@@ -12,8 +13,21 @@ repositories {
 }
 
 dependencies {
-
     compile 'org.slf4j:slf4j-api:1.7.7'
 
     testCompile 'junit:junit:4.11'
+}
+
+task allInJar(type: Jar) {
+	manifest {
+        attributes 'Implementation-Version': version
+        attributes 'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from {
+    	configurations.compile.collect {
+    		it.isDirectory() ? it : zipTree(it)
+    	}
+    }
+    with jar
 }
