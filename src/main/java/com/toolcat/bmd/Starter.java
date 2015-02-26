@@ -1,15 +1,40 @@
 package com.toolcat.bmd;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
+import java.awt.Robot;
 
 import javax.swing.JFrame;
 
 public class Starter {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws AWTException {
+		blockStandBy();
+//		blockDisplay();
+	}
+
+	private static void blockStandBy() throws AWTException {
+		final Robot robot = new Robot();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (true) {					
+					robot.mouseMove(10, 10);
+					robot.mouseMove(11, 11);
+					try {
+						Thread.sleep(10000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+	}
+
+	private static void blockDisplay() {
 		GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] devices = g.getScreenDevices();
 		
